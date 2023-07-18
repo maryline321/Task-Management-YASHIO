@@ -6,6 +6,8 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdateTaskRequest;
+
 
 class TaskController extends Controller
 {
@@ -70,31 +72,23 @@ class TaskController extends Controller
 
     }
 
-    public function updateTask(Request $request){
-
-        $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-            'due_date'=>'required',
-           
-        ]);
-
-        $id =$request->id;
-        $title =$request->title;
-        $description =$request->description;
-        $due_date =$request->due_date;
-        
+    
+    public function updateTask(UpdateTaskRequest $request)
+    {
+        $id = $request->id;
+        $title = $request->title;
+        $description = $request->description;
+        $due_date = $request->due_date;
 
         Task::where('id', '=', $id)->update([
-            'title'=>$title,
-            'description'=>$description,
-            'due_date'=>$due_date,
-               
-
+            'title' => $title,
+            'description' => $description,
+            'due_date' => $due_date,
         ]);
-        return redirect()->back()->with('success', "Task Updated Successfully");
 
+        return redirect()->back()->with('success', "Task Updated Successfully");
     }
+
 
     public function deleteTask($id){
         Task::where('id', '=',$id)->delete();
