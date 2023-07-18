@@ -37,12 +37,13 @@
 
   <div class="form-group">
     <label for="">Description</label>
-    <input type="description" name="description" class="form-control" placeholder="Enter description" value="{{$data->description}}">
-    @error('description')
-    <div class="alert alert-danger" role="alert">
-                {{$message}}
-            </div>
-     @enderror 
+    <textarea name="description" class="form-control" placeholder="Enter description">{{$data->description}}</textarea>
+@error('description')
+<div class="alert alert-danger" role="alert">
+    {{$message}}
+</div>
+@enderror
+ 
   </div>
   <div class="form-group">
     <label for="">Due Date</label>

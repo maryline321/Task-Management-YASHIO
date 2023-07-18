@@ -36,13 +36,13 @@
 
   <div class="form-group">
     <label for="">Description</label>
-    <input type="text" name="description" class="form-control" placeholder="Enter description" value="{{old('description')}}">
-    @error('description')
-    <div class="alert alert-danger" role="alert">
-                {{$message}}
-            </div>
-     @enderror 
-  </div>
+    <textarea name="description" class="form-control" placeholder="Enter description">{{old('description')}}</textarea>
+@error('description')
+<div class="alert alert-danger" role="alert">
+    {{$message}}
+</div>
+@enderror
+
   <div class="form-group">
     <label for="">Due Date</label>
     <input type="date" name="due_date" class="form-control" placeholder="Enter Due Date" value="{{old('due_date')}}">

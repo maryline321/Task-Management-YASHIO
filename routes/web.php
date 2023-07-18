@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [TaskController::class, 'index']);
+Route::get('/home', [TaskController::class, 'redirect']);
 
 
 Route::get('/tasks', [TaskController::class, 'showTasks']);

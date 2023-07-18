@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
 
+    public function redirect(){
+        
+        if(Auth::check())
+        {
+
+            return view('user.home');
+
+        }
+        else{
+
+            return redirect()->back();
+        }
+    }
+
     public function showTasks()
     {
         $user = Auth::user();
