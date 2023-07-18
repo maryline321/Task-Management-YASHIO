@@ -29,6 +29,8 @@
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th scope="col">Due Date</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
       
     </tr>
   </thead>
@@ -47,9 +49,14 @@
       <td>{{$task->title}}</td>
       <td>{{$task->description}}</td>
       <td>{{$task->due_date}}</td>
+
+      <td> <a href="{{url('edittask/'.$task->id)}}" class="btn btn-primary">Edit</a>
+</td>
+
+      <td> <a href="{{url('deletetask/'.$task->id)}}" class="btn btn-danger">Delete</a>
+</td>
     
-      
-       
+    
     </tr>
     @endforeach
     

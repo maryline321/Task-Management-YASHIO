@@ -19,13 +19,13 @@ class TaskController extends Controller
     }
     
 
-    public function addtasks(){
+    public function addTasks(){
         
         return view('Tasks.addtasks');
 
     
     }
-    public function savetasks(Request $request){
+    public function saveTasks(Request $request){
 
         $request->validate([
             'title'=>'required',
@@ -48,5 +48,42 @@ class TaskController extends Controller
 
         return redirect('/addtasks')->with('success', "Task Added Successfully");
 
+    }
+
+    public function editTask($id){
+        $data = Task::where('id', '=', $id)->first();
+        return view('Tasks.edittasks',compact('data'));
+
+    }
+
+    public function updateTask(Request $request){
+
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'due_date'=>'required',
+           
+        ]);
+
+        $id =$request->id;
+        $title =$request->title;
+        $description =$request->description;
+        $due_date =$request->due_date;
+        
+
+        Task::where('id', '=', $id)->update([
+            'title'=>$title,
+            'description'=>$description,
+            'due_date'=>$due_date,
+               
+
+        ]);
+        return redirect()->back()->with('success', "Task Updated Successfully");
+
+    }
+
+    public function deleteTask($id){
+        Task::where('id', '=',$id)->delete();
+        return redirect('/tasks')->with('success', "Task deleted Successfully");
     }
 }

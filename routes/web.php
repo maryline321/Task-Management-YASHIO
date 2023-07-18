@@ -14,13 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('task-list', [TaskController::class, 'showTasks']);
+Route::get('/home', [TaskController::class, 'index']);
 
-// Route::get('/users/{userId}/tasks', [TaskController::class, 'showTasks']);
+
 Route::get('/tasks', [TaskController::class, 'showTasks']);
 
-Route::get('addtasks', [TaskController::class, 'addtasks']);
-Route::post('savetasks', [TaskController::class, 'savetasks']);
+Route::get('addtasks', [TaskController::class, 'addTasks']);
+Route::post('savetasks', [TaskController::class, 'saveTasks']);
+Route::get('edittask/{id}', [TaskController::class, 'editTask']);
+Route::post('updatetask', [TaskController::class, 'updateTask']);
+Route::get('deletetask/{id}', [TaskController::class, 'deleteTask']);
+
 
 
 
