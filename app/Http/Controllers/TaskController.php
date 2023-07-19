@@ -63,13 +63,19 @@ class TaskController extends Controller
         $task->user_id = $user->id;
         $task->save();
 
-        return redirect('/addtasks')->with('success', "Task Added Successfully");
+        return new TaskResource($task);
+
+        // return redirect('/addtasks')->with('success', "Task Added Successfully");
 
     }
 
     public function editTask($id){
         $data = Task::where('id', '=', $id)->first();
-        return view('Tasks.edittasks',compact('data'));
+
+        // return view('Tasks.edittasks',compact('data'));
+
+        return new TaskResource($data);
+
 
     }
 
@@ -87,12 +93,17 @@ class TaskController extends Controller
             'due_date' => $due_date,
         ]);
 
-        return redirect()->back()->with('success', "Task Updated Successfully");
+        $task = Task::findOrFail($id);
+
+        return new TaskResource($task);
+        // return redirect()->back()->with('success', "Task Updated Successfully");
     }
 
 
     public function deleteTask($id){
-        Task::where('id', '=',$id)->delete();
-        return redirect('/tasks')->with('success', "Task deleted Successfully");
+
+        Task::findOrFail($id)->delete();
+        
+        return response()->json(['message' => 'Task deleted successfully']);
     }
 }
