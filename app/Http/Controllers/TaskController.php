@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\SaveTasksRequest;
+
 use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
@@ -42,31 +44,21 @@ class TaskController extends Controller
 
     
     }
-    public function saveTasks(Request $request){
+    public function saveTasks(SaveTasksRequest $request)
+    {
+        $title = $request->title;
+        $description = $request->description;
+        $due_date = $request->due_date;
 
-        $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-            'due_date'=>'required',
-            
-        ]);
-
-        $title =$request->title;
-        $description =$request->description;
-        $due_date =$request->due_date;
-        
         $user = Auth::user();
         $task = new Task();
-        $task->title =$title;
-        $task->description =$description;
-        $task->due_date =$due_date;
+        $task->title = $title;
+        $task->description = $description;
+        $task->due_date = $due_date;
         $task->user_id = $user->id;
         $task->save();
 
         return new TaskResource($task);
-
-        // return redirect('/addtasks')->with('success', "Task Added Successfully");
-
     }
 
     public function editTask($id){
@@ -103,7 +95,7 @@ class TaskController extends Controller
     public function deleteTask($id){
 
         Task::findOrFail($id)->delete();
-        
+
         return response()->json(['message' => 'Task deleted successfully']);
     }
 }
