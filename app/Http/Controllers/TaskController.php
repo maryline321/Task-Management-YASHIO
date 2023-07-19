@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateTaskRequest;
-
+use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
 {
@@ -31,7 +31,8 @@ class TaskController extends Controller
         $user = Auth::user();
         $tasks = Task::where('user_id', $user->id)->orderBy('due_date', 'desc')->get();
     
-        return view('Tasks.viewtasks', compact('tasks'));
+        // return view('Tasks.viewtasks', compact('tasks'));
+        return TaskResource::collection($tasks);
     }
     
 

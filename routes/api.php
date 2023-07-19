@@ -2,18 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+Route::get('/tasks', [TaskController::class, 'showTasks']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('addtasks', [TaskController::class, 'addTasks']);
+Route::post('savetasks', [TaskController::class, 'saveTasks']);
+Route::get('edittask/{id}', [TaskController::class, 'editTask']);
+Route::post('updatetask', [TaskController::class, 'updateTask']);
+Route::get('deletetask/{id}', [TaskController::class, 'deleteTask']);
